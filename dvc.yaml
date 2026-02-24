@@ -1,0 +1,10 @@
+stages:
+  visualize_data:
+    cmd: python src/data_visualization.py
+    deps:
+      - data/raw/bank-additional-full.csv
+    outs:
+      - docs/figures/distribucion_target.png
+      - docs/figures/distribucion_educacion.png
+      - docs/figures/distribucion_dia_semana.png
+      - docs/figures/correlacion.png
