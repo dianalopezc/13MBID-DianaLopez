@@ -24,3 +24,20 @@ stages:
       hash: md5
       md5: e7f266fe81d70524d88e2c040ee74a0d
       size: 24025
+  test_data_quality:
+    cmd: .\.venv\Scripts\python.exe -m pytest --html=docs/test_results/test_results.html
+      --self-contained-html test/test_data_quality.py
+    deps:
+    - path: data/raw/bank-additional-full.csv
+      hash: md5
+      md5: f6cb2c1256ffe2836b36df321f46e92c
+      size: 5834924
+    - path: test/test_data_quality.py
+      hash: md5
+      md5: 7886330017a27190bc14fdb99f90a020
+      size: 2747
+    outs:
+    - path: docs/test_results/test_results.html
+      hash: md5
+      md5: 0aa429efab83764eeb7ddac5b15f5a62
+      size: 33893
