@@ -57,6 +57,20 @@ def test_basico(datos_banco):
     assert df.shape[1] == 21, f"El DataFrame debería tener 21 columnas, pero tiene {df.shape[1]}."
 
 
+def test_valid_months(datos_banco):
+    """
+    Verifica que la columna 'month' contenga solo meses válidos.
+    """
+    df = datos_banco
+
+    valid_months = [
+        "jan", "feb", "mar", "apr", "may", "jun",
+        "jul", "aug", "sep", "oct", "nov", "dec"
+    ]
+
+    assert df["month"].isin(valid_months).all(), \
+        "La columna 'month' contiene valores no válidos."
+
 if __name__ == "__main__":
     try:
         test_esquema(datos_banco())
