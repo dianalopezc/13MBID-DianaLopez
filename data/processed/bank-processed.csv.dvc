@@ -1,0 +1,5 @@
+outs:
+- md5: c5aaab1eb2f8825c06a8d661a772b6cd
+  size: 4444956
+  hash: md5
+  path: bank-processed.csv
