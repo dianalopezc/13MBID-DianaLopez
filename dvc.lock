@@ -34,13 +34,13 @@ stages:
       size: 5834924
     - path: test/test_data_quality.py
       hash: md5
-      md5: 7886330017a27190bc14fdb99f90a020
-      size: 2747
+      md5: 6abd9fbd77b3608bd5e3844dd539c39d
+      size: 3139
     outs:
     - path: docs/test_results/test_results.html
       hash: md5
-      md5: 0aa429efab83764eeb7ddac5b15f5a62
-      size: 33893
+      md5: 4daa2b9fffdf1c72bde1174edb012727
+      size: 34505
   test_data_gx:
     cmd: .\.venv\Scripts\python.exe -m pytest --html=docs/test_results/test_results_gx.html
       --self-contained-html test/test_data_gx.py
@@ -58,3 +58,19 @@ stages:
       hash: md5
       md5: e5e39351692e4d3ca999e4285dc19e21
       size: 33323
+  preprocess_data:
+    cmd: python src/data_preparation.py
+    deps:
+    - path: data/raw/bank-additional-full.csv
+      hash: md5
+      md5: f6cb2c1256ffe2836b36df321f46e92c
+      size: 5834924
+    - path: src/data_preparation.py
+      hash: md5
+      md5: 0fd4eaa44b1a842d464e7d78af3ba3ba
+      size: 1502
+    outs:
+    - path: data/processed/bank-processed.csv
+      hash: md5
+      md5: c5aaab1eb2f8825c06a8d661a772b6cd
+      size: 4444956

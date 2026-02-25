@@ -23,5 +23,13 @@ stages:
       - test/test_data_gx.py
       - data/raw/bank-additional-full.csv
     outs:
-      - docs/test_results/test_results_gx.html    
+      - docs/test_results/test_results_gx.html   
+
+  preprocess_data:
+    cmd: python src/data_preparation.py
+    deps:
+      - data/raw/bank-additional-full.csv
+      - src/data_preparation.py
+    outs:
+      - data/processed/bank-processed.csv 
 
