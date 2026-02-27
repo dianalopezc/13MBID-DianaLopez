@@ -25,6 +25,10 @@ def preprocess_data(input_path=INPUT_CSV, output_path=OUTPUT_CSV):
     # Se hace un filtro para eliminar las filas duplicadas
     df.drop_duplicates(inplace=True)
 
+    # Mapear la columna objetivo a valores binarios
+    map = {"no": 0, "yes": 1}
+    df["y"] = df["y"].map(map)
+
     # Guardar el dataset procesado
     df.to_csv(output_path, index=False)
 
