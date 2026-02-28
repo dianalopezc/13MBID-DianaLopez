@@ -16,7 +16,7 @@ class PredictionRequest(BaseModel):
     job: str
     marital: str
     education: str
-    default: str         
+    default: str
     housing: str
     loan: str
     contact: str
@@ -31,11 +31,11 @@ class PredictionRequest(BaseModel):
     cons_conf_idx: float
     euribor3m: float
     nr_employed: float
-    contacted_before: float
+    contacted_before: str
 
     class Config:
         json_schema_extra = {
-            "example": {               
+            "example": {
                 "age": 35,
                 "job": "technician",
                 "marital": "married",
@@ -55,21 +55,21 @@ class PredictionRequest(BaseModel):
                 "cons_conf_idx": -46.2,
                 "euribor3m": 1.299,
                 "nr_employed": 5099.1,
-                "contacted_before": 0.0
+                "contacted_before": "no"
             }
         }
 
 
 class PredictionResponse(BaseModel):
     prediction: str
-    probability: Dict[str, float]   # FIX: era Dict[float, Any]
+    probability: Dict[str, float]
     model_info: Dict[str, Any]
 
 
 MODEL_PATH = "models/decision_tree_model.pkl"
 
 try:
-    model = joblib.load(MODEL_PATH)   
+    model = joblib.load(MODEL_PATH)
 except FileNotFoundError as e:
     model = None
     raise RuntimeError(f"No se pudo cargar el modelo desde {MODEL_PATH}: {e}")
@@ -95,12 +95,15 @@ def predict(request: PredictionRequest):
     try:
         input_data = pd.DataFrame([request.dict()])
 
+        # FIX: convertir contacted_before de string a float
+        input_data['contacted_before'] = input_data['contacted_before'].map({'no': 0.0, 'yes': 1.0})
+
         prediction = model.predict(input_data)[0]
         probability = model.predict_proba(input_data)[0]
 
         class_labels = model.classes_
         probability_dict = {
-            str(class_labels[i]): float(probability[i])  
+            str(class_labels[i]): float(probability[i])
             for i in range(len(class_labels))
         }
 

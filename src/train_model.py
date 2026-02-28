@@ -219,7 +219,7 @@ def train_model(data_path, model_output_path, preprocessor_output_path, metrics_
         with open(metrics_output_path, 'w') as f:
             json.dump(metrics, f, indent=2)
 
-        return model, preprocessor, metrics
+        return metrics
 
 
 if __name__ == "__main__":

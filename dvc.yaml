@@ -43,3 +43,11 @@ stages:
       - models/preprocessor.pkl
       - metrics/model_metrics.json
 
+  test_model:
+    cmd: .\.venv\Scripts\python.exe -m pytest --html=docs/test_results/test_results_model.html --self-contained-html test/test_trainning.py
+    deps:
+      - test/test_trainning.py
+      - metrics/model_metrics.json
+    outs:
+      - docs/test_results/test_results_model.html
+

@@ -2,12 +2,17 @@ import json
 from pathlib import Path
 import sys
 import pytest
+import os
+
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
+
 from train_model import train_model
 
 
 def test_training_metrics_regression(tmp_path):
     project_root = Path(__file__).resolve().parents[1]
-    baseline_path = project_root / "metrics" / "model_metrics.json"
+    baseline_path = project_root / "metrics" / "train_metrics.json"
 
     if not baseline_path.exists():
         pytest.skip(f"No se encontró la baseline en {baseline_path}. Ejecuta primero el entrenamiento baseline.")
@@ -39,3 +44,7 @@ def test_training_metrics_regression(tmp_path):
     for k in baseline.keys():
         assert metrics[k] == pytest.approx(baseline[k], rel=0, abs=atol), \
             f"Métrica {k} cambió: baseline={baseline[k]} nueva={metrics[k]}"
+
+
+if __name__ == "__main__":
+    test_training_metrics_regression()
