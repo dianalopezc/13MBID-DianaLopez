@@ -83,8 +83,8 @@ stages:
       size: 4402467
     - path: src/train_model.py
       hash: md5
-      md5: 1538fc6dc6fe31bc2b4c85546ffdf2e0
-      size: 8904
+      md5: 8995f2d58a165b914578d475b14b8c5a
+      size: 8883
     outs:
     - path: metrics/model_metrics.json
       hash: md5
@@ -98,3 +98,20 @@ stages:
       hash: md5
       md5: e79ed6128d82b2d77b069cefd2933984
       size: 7507
+  test_model:
+    cmd: .\.venv\Scripts\python.exe -m pytest --html=docs/test_results/test_results_model.html
+      --self-contained-html test/test_trainning.py
+    deps:
+    - path: metrics/model_metrics.json
+      hash: md5
+      md5: 763930445ba894ac2a2e6de42d5d1e69
+      size: 160
+    - path: test/test_trainning.py
+      hash: md5
+      md5: 7cfebc0c977eb3a077de7e5b94767c0f
+      size: 1708
+    outs:
+    - path: docs/test_results/test_results_model.html
+      hash: md5
+      md5: f8825603b990c0c5dba5882e0799edc6
+      size: 33902
